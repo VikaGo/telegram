@@ -11,6 +11,9 @@ import (
 
 type Config struct {
 	TelegramToken string `env:"TOKEN"`
+	logLevel      string `env:"LOG_LEVEL"`
+	logFilePath   string `env:"LOG_FILE_PATH"`
+	logFormat     string `env:"LOG_FORMAT"`
 }
 
 func main() {
@@ -50,6 +53,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+
 	TOKEN := os.Getenv("TOKEN")
 
 	bot, err := tgbotapi.NewBotAPI(TOKEN)

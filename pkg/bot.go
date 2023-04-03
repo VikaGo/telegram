@@ -23,13 +23,18 @@ func (b *Bot) Start() error {
 		if update.Message == nil { // ignore any non-Message Updates
 			continue
 		}
-
 		if update.Message.IsCommand() {
 			b.handleCommand(update.Message)
 			continue
 		}
 
+		if update.Message.Text == "" {
+			b.handleMessageText(update.Message)
+			continue
+		}
+
 		b.handleMessage(update.Message)
 	}
+
 	return nil
 }
