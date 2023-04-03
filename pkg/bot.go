@@ -26,7 +26,5 @@ func (b *Bot) Start() error {
 			b.handleCommand(update.Message)
 			continue
 		}
-		b.handleMessage(update.Message)
-	}
 	return nil
 }

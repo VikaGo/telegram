@@ -9,6 +9,7 @@ const commandAbout = "about"
 const commandLinks = "links"
 const commandHelp = "help"
 
+
 func (b *Bot) handleCommand(message *tgbotapi.Message) error {
 
 	switch message.Command() {
@@ -20,10 +21,12 @@ func (b *Bot) handleCommand(message *tgbotapi.Message) error {
 		return b.handleAboutCommand(message)
 	case commandLinks:
 		return b.handleLinksCommand(message)
+
 	default:
 		return b.handleUnknownCommand(message)
 	}
 }
+
 func (b *Bot) handleMessage(message *tgbotapi.Message) error {
 	msg := tgbotapi.NewMessage(message.Chat.ID, "I don't understand you. If you need /help, just choose the option.")
 	_, err := b.bot.Send(msg)

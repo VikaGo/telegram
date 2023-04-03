@@ -39,6 +39,7 @@ func main() {
 	} else {
 		logrus.SetOutput(os.Stdout)
 	}
+
 	if logFormat == "json" {
 		logrus.SetFormatter(&logrus.JSONFormatter{})
 	} else {
