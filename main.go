@@ -11,6 +11,9 @@ import (
 
 type Config struct {
 	TelegramToken string `env:"TOKEN"`
+	logLevel      string `env:"LOG_LEVEL"`
+	logFilePath   string `env:"LOG_FILE_PATH"`
+	logFormat     string `env:"LOG_FORMAT"`
 }
 
 func main() {
@@ -39,6 +42,7 @@ func main() {
 	} else {
 		logrus.SetOutput(os.Stdout)
 	}
+
 	if logFormat == "json" {
 		logrus.SetFormatter(&logrus.JSONFormatter{})
 	} else {
@@ -65,3 +69,4 @@ func main() {
 		return
 	}
 }
+
