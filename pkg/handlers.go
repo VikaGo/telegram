@@ -8,6 +8,22 @@ const commandStart = "start"
 const commandAbout = "about"
 const commandLinks = "links"
 const commandHelp = "help"
+const commandHoliday = "holiday"
+
+var holidayMenu = tgbotapi.NewReplyKeyboard(
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("🇺🇸 USA"),
+		tgbotapi.NewKeyboardButton("🇬🇧 UK"),
+	),
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("🇫🇷 France"),
+		tgbotapi.NewKeyboardButton("🇩🇪 Germany"),
+	),
+	tgbotapi.NewKeyboardButtonRow(
+		tgbotapi.NewKeyboardButton("🇮🇹 Italy"),
+		tgbotapi.NewKeyboardButton("🇮🇳 India"),
+	),
+)
 
 func (b *Bot) handleCommand(message *tgbotapi.Message) error {
 
@@ -20,10 +36,13 @@ func (b *Bot) handleCommand(message *tgbotapi.Message) error {
 		return b.handleAboutCommand(message)
 	case commandLinks:
 		return b.handleLinksCommand(message)
+	case commandHoliday:
+		return b.handleHolidayCommand(message)
 	default:
 		return b.handleUnknownCommand(message)
 	}
 }
+
 func (b *Bot) handleMessage(message *tgbotapi.Message) error {
 	msg := tgbotapi.NewMessage(message.Chat.ID, "I don't understand you. If you need /help, just choose the option.")
 	_, err := b.bot.Send(msg)
@@ -53,9 +72,17 @@ func (b *Bot) handleLinksCommand(message *tgbotapi.Message) error {
 	return err
 }
 
+func (b *Bot) handleHolidayCommand(message *tgbotapi.Message) error {
+	msg := tgbotapi.NewMessage(message.Chat.ID, "Please choose a country:")
+	msg.ReplyMarkup = holidayMenu
+	_, err := b.bot.Send(msg)
+	return err
+}
+
 func (b *Bot) handleUnknownCommand(message *tgbotapi.Message) error {
 	msg := tgbotapi.NewMessage(message.Chat.ID, "The command is invalid")
 	_, err := b.bot.Send(msg)
 	return err
 }
+
 
