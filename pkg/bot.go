@@ -10,6 +10,7 @@ type Bot struct {
 
 func NewBot(bot *tgbotapi.BotAPI) *Bot {
 	return &Bot{bot: bot}
+
 }
 
 func (b *Bot) Start() error {
@@ -26,7 +27,14 @@ func (b *Bot) Start() error {
 			b.handleCommand(update.Message)
 			continue
 		}
+
+		if update.Message.Text == "" {
+			b.handleMessageText(update.Message)
+			continue
+		}
+
 		b.handleMessage(update.Message)
 	}
+
 	return nil
 }
