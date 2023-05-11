@@ -14,6 +14,7 @@ type Config struct {
 	logLevel      string `env:"LOG_LEVEL"`
 	logFilePath   string `env:"LOG_FILE_PATH"`
 	logFormat     string `env:"LOG_FORMAT"`
+	apiKey        string `env:"apiKey"`
 }
 
 func main() {
@@ -69,4 +70,3 @@ func main() {
 		return
 	}
 }
-
