@@ -28,13 +28,19 @@ func (b *Bot) Start() error {
 			continue
 		}
 
-		if update.Message.Text == "" {
-			b.handleMessageText(update.Message)
+		if update.Message.Text != "" {
+			country := update.Message.Text
+			holiday, err := getHoliday(country)
+			if err != nil {
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Sorry, an error occurred while retrieving the holiday information.")
+				b.bot.Send(msg)
+			} else {
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "In "+country+" is "+holiday+".")
+				b.bot.Send(msg)
+			}
 			continue
 		}
-
 		b.handleMessage(update.Message)
 	}
 
 	return nil
-}
